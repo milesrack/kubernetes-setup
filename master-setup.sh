@@ -54,6 +54,9 @@ sudo kubeadm init --apiserver-advertise-address=$ip --apiserver-cert-extra-sans=
 # Enable networking
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
 
+# Enable metrics
+kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
+
 # Allow us to interact with cluster API
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -66,7 +69,7 @@ echo "cgroupDriver: systemd" >> $HOME/.kube/config
 sudo systemctl restart kubelet
 
 # View pods
-# kubectl get po -n kube-system
+# kubectl get pods -n kube-system
 
 # Cluster info
 # kubectl cluster-info

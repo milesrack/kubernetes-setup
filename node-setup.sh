@@ -45,4 +45,4 @@ sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # Replace with whatever you got from kubeadm init
-sudo kubeadm join 192.168.122.48:6443 --token hvs9aq.knfdh6tcjl14util --discovery-token-ca-cert-hash sha256:18988c12c612ee639561a31d18682246e62e60e1ac0d4fe370eb150d7114f00d
+# sudo kubeadm join 192.168.122.48:6443 --token hvs9aq.knfdh6tcjl14util --discovery-token-ca-cert-hash sha256:18988c12c612ee639561a31d18682246e62e60e1ac0d4fe370eb150d7114f00d
