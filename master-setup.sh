@@ -51,12 +51,6 @@ ip=${ip_arr[0]}
 # Start the cluster (save join command this outputs)
 sudo kubeadm init --apiserver-advertise-address=$ip --apiserver-cert-extra-sans=$ip --pod-network-cidr=10.10.0.0/16 --node-name $(hostname)
 
-# Enable networking
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
-
-# Enable metrics
-kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
-
 # Allow us to interact with cluster API
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -65,11 +59,14 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # Set systemd as the cgroup driver
 echo "cgroupDriver: systemd" >> $HOME/.kube/config
 
+# Enable networking
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
+
+# Enable metrics
+kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
+
 # Restart the service
 sudo systemctl restart kubelet
 
-# View pods
-# kubectl get pods -n kube-system
-
-# Cluster info
-# kubectl cluster-info
+# Output join command
+echo -n "sudo "; kubeadm token create --print-join-command
