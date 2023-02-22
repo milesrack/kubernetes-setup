@@ -45,11 +45,12 @@ sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # Find IP address
-ip_arr=($(hostname -I))
-ip=${ip_arr[0]}
+# ip_arr=($(hostname -I))
+# ip=${ip_arr[0]}
 
 # Start the cluster (save join command this outputs)
-sudo kubeadm init --apiserver-advertise-address=$ip --apiserver-cert-extra-sans=$ip --pod-network-cidr=10.10.0.0/16 --node-name $(hostname)
+# sudo kubeadm init --apiserver-advertise-address=$ip --apiserver-cert-extra-sans=$ip --pod-network-cidr=10.10.0.0/16 --node-name $(hostname)
+sudo kubeadm init
 
 # Allow us to interact with cluster API
 mkdir -p $HOME/.kube
